@@ -174,6 +174,9 @@ public class VRfid extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+                Vempreinte ver = new Vempreinte();
+                ver.show();
+                dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

@@ -26,6 +26,10 @@ public class view extends javax.swing.JFrame {
         this.Id_ = Id_;
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        loadPatientInfo();
+        
+        loadConsultationInfo();
     }
 
     /**
@@ -52,7 +56,6 @@ public class view extends javax.swing.JFrame {
         consultation = new javax.swing.JButton();
         hospitalisation = new javax.swing.JButton();
         presmedicament = new javax.swing.JButton();
-        patient = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jlabel1_photoId = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -133,13 +136,13 @@ public class view extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mail, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NSsocial, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(NSsocial, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         jPanel4.setOpaque(false);
@@ -173,13 +176,6 @@ public class view extends javax.swing.JFrame {
             }
         });
 
-        patient.setText("patient");
-        patient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                patientActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -191,9 +187,7 @@ public class view extends javax.swing.JFrame {
                 .addComponent(hospitalisation)
                 .addGap(27, 27, 27)
                 .addComponent(presmedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-                .addComponent(patient, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
+                .addContainerGap(289, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,9 +196,7 @@ public class view extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(consultation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(presmedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(patient))
+                        .addComponent(presmedicament, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(hospitalisation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -473,21 +465,7 @@ public class view extends javax.swing.JFrame {
 
     private void consultationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultationActionPerformed
         // TODO add your handling code here:
-        jTextArea1.setText("");
-        controllerConsultation cc = new controllerConsultation();
-        List<modelConsultation> consultations = cc.Lst(Id_);
-
-        for (int i=0; i < consultations.size();i++) {
-            
-            jTextArea1.append(String.format("____________________________________________________________________________________________________________________________________________________________\n"));
-            jTextArea1.append(String.format("Numero de cosultation : "+cc.Lst(Id_).get(i).getConsultation_id() +"\n\n"));
-            jTextArea1.append(String.format("Consultation Date : "+cc.Lst(Id_).get(i).getConsultation_date())+"\n");
-            jTextArea1.append(String.format("Notes : "+cc.Lst(Id_).get(i).getNotes()+"\n"));
-            jTextArea1.append(String.format("Diagnosis :"+cc.Lst(Id_).get(i).getDiagnosis()+"\n"));
-            jTextArea1.append(String.format("Traitement : "+cc.Lst(Id_).get(i).getTreatment() +"\n"));
-            jTextArea1.append(String.format("____________________________________________________________________________________________________________________________________________________________\n"));
-   
-        }                          
+        loadConsultationInfo();                        
     }//GEN-LAST:event_consultationActionPerformed
 
     private void hospitalisationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hospitalisationActionPerformed
@@ -564,25 +542,38 @@ public class view extends javax.swing.JFrame {
         
     }//GEN-LAST:event_presmedicamentActionPerformed
 
-    private void patientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientActionPerformed
-        // TODO add your handling code here:
-        
-        controllerPatient cp1 = new controllerPatient();
+    private void loadPatientInfo() {
+    controllerPatient cp1 = new controllerPatient();
 
-               name.setText(cp1.Lst(Id_).get(0).getFirst_name());
-               pname.setText(cp1.Lst(Id_).get(0).getLast_name());
-               date.setText(""+cp1.Lst(Id_).get(0).getBirth_date());
-               contact.setText(cp1.Lst(Id_).get(0).getPhone_number());
-               sexe.setText(cp1.Lst(Id_).get(0).getGender());
-               address.setText(cp1.Lst(Id_).get(0).getAddress());
-               allergie.setText(cp1.Lst(Id_).get(0).getAllergies());
-               id.setText(""+cp1.Lst(Id_).get(0).getPatient_id());
-               names.setText(cp1.Lst(Id_).get(0).getEmergency_contact());
-               mail.setText(cp1.Lst(Id_).get(0).getEmail());
-               NSsocial.setText(cp1.Lst(Id_).get(0).getSocial_security_number());
-               
-               patient.setVisible(false);
-    }//GEN-LAST:event_patientActionPerformed
+    name.setText(cp1.Lst(Id_).get(0).getFirst_name());
+    pname.setText(cp1.Lst(Id_).get(0).getLast_name());
+    date.setText("" + cp1.Lst(Id_).get(0).getBirth_date());
+    contact.setText(cp1.Lst(Id_).get(0).getPhone_number());
+    sexe.setText(cp1.Lst(Id_).get(0).getGender());
+    address.setText(cp1.Lst(Id_).get(0).getAddress());
+    allergie.setText(cp1.Lst(Id_).get(0).getAllergies());
+    id.setText("" + cp1.Lst(Id_).get(0).getPatient_id());
+    names.setText(cp1.Lst(Id_).get(0).getEmergency_contact());
+    mail.setText(cp1.Lst(Id_).get(0).getEmail());
+    NSsocial.setText(cp1.Lst(Id_).get(0).getSocial_security_number());
+}
+    
+    private void loadConsultationInfo() {
+    jTextArea1.setText(""); // Réinitialiser la zone de texte
+    controllerConsultation cc = new controllerConsultation();
+    List<modelConsultation> consultations = cc.Lst(Id_);
+
+    for (int i = 0; i < consultations.size(); i++) {
+        jTextArea1.append("__________________________________________________________________________________________\n");
+        jTextArea1.append("Numéro de consultation : " + consultations.get(i).getConsultation_id() + "\n");
+        jTextArea1.append("Date de consultation : " + consultations.get(i).getConsultation_date() + "\n");
+        jTextArea1.append("Notes : " + consultations.get(i).getNotes() + "\n");
+        jTextArea1.append("Diagnostic : " + consultations.get(i).getDiagnosis() + "\n");
+        jTextArea1.append("Traitement : " + consultations.get(i).getTreatment() + "\n");
+        jTextArea1.append("__________________________________________________________________________________________\n\n");
+    }
+}
+
 
     /**
      * @param args the command line arguments
@@ -657,7 +648,6 @@ public class view extends javax.swing.JFrame {
     private javax.swing.JLabel name;
     private javax.swing.JLabel names;
     private java.awt.Panel panel3;
-    private javax.swing.JButton patient;
     private javax.swing.JLabel pname;
     private javax.swing.JButton presmedicament;
     private javax.swing.JLabel sexe;

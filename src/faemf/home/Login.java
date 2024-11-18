@@ -223,7 +223,7 @@ public class Login extends javax.swing.JFrame {
         try {
             boolean isVerified = controller.verifyPassword(model);
             if (isVerified) {
-                verification ver = new verification();
+                VRfid ver = new VRfid();
                 ver.show();
                 dispose();
             } else {
